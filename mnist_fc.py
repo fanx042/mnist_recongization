@@ -65,13 +65,14 @@ train_acc = []
 test_loss = []
 test_acc = []
 
-net.train()
+
 for epoch in range(20):
     train_epoch_loss = 0
     train_epoch_acc = 0
     test_epoch_loss = 0
     test_epoch_acc = 0
 
+    net.train()
     train_tqdm = tqdm(train_dl, desc=f'Epoch: {epoch+1}')
     for x, y in train_tqdm:
         x, y = x.cuda(), y.cuda()
@@ -97,6 +98,7 @@ for epoch in range(20):
     train_loss.append(train_epoch_loss)
     train_acc.append(train_epoch_acc)
 
+    net.eval()
     with torch.no_grad():
         for x, y in test_dl:
             x, y = x.cuda(), y.cuda()
